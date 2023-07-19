@@ -1,4 +1,3 @@
-
 from configs.base_config import *
 from unicodedata import category
 from flask import Flask, render_template, request, redirect, url_for, flash, session, make_response
@@ -22,12 +21,10 @@ conn = psycopg2.connect(user="postgres", password="lilian",
                         host="localhost", port="5432", database="hotd")
 # Open a cursor to perform database operations
 cur = conn.cursor()
-
 # app.config.from_object(Development)
-
-
 db = SQLAlchemy(app)
-
+#solving working out of application context
+app.app_context().push()
 # from models.Patient import Patient
 # from models.Staff import Staff
 # from models.Appointment import Appointment
@@ -86,8 +83,8 @@ class Patient(db.Model):
     gender = db.Column(db.String(80), unique=False, nullable=False)
     address = db.Column(db.String(80), unique=False, nullable=False)
     telephone = db.Column(db.String(80), unique=False, nullable=False)
-    guardian_name = db.Column(db.String(80), unique=False, nullable=True)
-    guardian_phone_no = db.Column(db.String(80), unique=False, nullable=True)
+    guardian_name = db.Column(db.String(80), unique=False, nullable=False)
+    guardian_phone_no = db.Column(db.String(80), unique=False, nullable=False)
     registering_time = db.Column(db.DateTime(
         timezone=True), server_default=func.now())
     appointments = db.relationship(
@@ -159,9 +156,9 @@ class Visitors(db.Model):
     __tablename__ = 'visitors'
     id = db.Column(db.Integer, primary_key=True)
     patient_id = db.Column(db.Integer, db.ForeignKey('patients.id'))
-    name = db.Column(db.String(80),  nullable=True)
-    gender = db.Column(db.String(80),  nullable=True)
-    visitor_pnone = db.Column(db.String(80),  nullable=True)
+    name = db.Column(db.String(80),  nullable=False)
+    gender = db.Column(db.String(80),  nullable=False)
+    visitor_pnone = db.Column(db.String(80),  nullable=False)
     visiting_time = db.Column(db.DateTime(
         timezone=True), server_default=func.now())
 
@@ -182,13 +179,13 @@ db.create_all()
 #
 
 
-@app.before_first_request
+"""@app.before_first_request
 def create_tables():
 
     # db.drop_all()
     db.create_all()
 
-    seeding()
+    seeding()"""
 
 
 def login_required(f):
@@ -279,6 +276,8 @@ def edit_patient():
         gender = request.form['gender']
         address = request.form['address']
         telephone = request.form['telephone']
+        guardian_name = request.form['guardian_name']
+        guardian_phone_no = request.form['guardian_phone_no']
 
         patient_to_edit = Patient.query.filter_by(id=patient_id).first()
         patient_to_edit.first_name = first_name
@@ -286,6 +285,8 @@ def edit_patient():
         patient_to_edit.gender = gender
         patient_to_edit.address = address
         patient_to_edit.telephone = telephone
+        patient_to_edit.guardian_name = guardian_name
+        patient_to_edit.guardian_phone_no = guardian_phone_no
 
         db.session.add(patient_to_edit)
         db.session.commit()
@@ -301,7 +302,6 @@ def doctors():
     logged_in = session['logged_in']
     first_name = session['first_name']
     last_name = session['last_name']
-    genders = ['M', 'F']
     roles = Role.query.all()
     medical_staff = Staff.query.all()
     print(medical_staff)
@@ -426,7 +426,6 @@ def dashboard_doc():
 @login_required
 def appointments():
     if session:
-        role = session['role']
         staff_id = session['staff_id']
 
         if request.method == 'POST':
@@ -457,7 +456,7 @@ def appointments():
         doctors = Staff.query.all()
         appointments = Appointment.query.all()
 
-        return render_template('appointments.html', patients=patients, doctors=doctors, appointments=appointments, role=role, staff_id=staff_id, logged_in=logged_in, first_name=first_name, last_name=last_name)
+        return render_template('appointments.html', patients=patients, doctors=doctors, appointments=appointments, staff_id=staff_id, logged_in=logged_in, first_name=first_name, last_name=last_name)
     else:
         return redirect(url_for('login'))
 
@@ -525,8 +524,6 @@ def register():
     if request.method == 'POST':
         first_name = request.form['first_name']
         last_name = request.form['last_name']
-
-        role = request.form['role']
         telephone = request.form['telephone']
         email = request.form['email']
         password = request.form['password']
@@ -539,7 +536,7 @@ def register():
                 "The user already exists. Please try registering with a different email.", "danger")
         else:
             new_staff_member = Staff(first_name=first_name, last_name=last_name, department=department,
-                                     role=role, telephone=telephone, email=email, password=hashed_password)
+                                     telephone=telephone, email=email, password=hashed_password)
 
             db.session.add(new_staff_member)
             db.session.commit()
@@ -568,7 +565,6 @@ def login():
                 session['logged_in'] = True
                 session['first_name'] = Staff.fetch_by_email(email).first_name
                 session['last_name'] = Staff.fetch_by_email(email).last_name
-                session['role'] = Staff.fetch_by_email(email).roles.name
                 session['staff_id'] = Staff.fetch_by_email(email).id
 
                 return redirect(url_for('dashboard'))
@@ -646,11 +642,12 @@ def charges():
         if patient:
             session['chargesid'] = patient.id
             patientt = Patient.query.filter_by(telephone=phone).all()
-            print(patientt)
-            return redirect(url_for("chargestable",patientt=patientt))
+
+            return redirect(url_for("chargestable", patientt=patientt))
         else:
             return render_template("telephoneform.html")
     else:
+
         return render_template("telephoneform.html")
 
 
@@ -671,8 +668,6 @@ def bill():
 @app.route('/paybill', methods=['POST', 'GET'])
 def paybill():
     if request.method == 'POST':
-        phone = request.form['phone']
-        patient = Patient.query.filter_by(telephone=phone).all()
 
         service_offered = request.form['service_offered']
         cost = request.form['cost']
@@ -685,12 +680,12 @@ def paybill():
             patient_id=x, service_offered=service_offered, cost=cost)
         db.session.add(charges)
         db.session.commit()
-        return redirect('/chargestable',patient=patient)
+        return redirect('/chargestable')
 
 
 @app.route('/chargestable', methods=['POST', 'GET'])
 def chargestable():
-    
+
     x = session['chargesid']
     charges = Charges.query.filter_by(patient_id=x).all()
     print(charges)
@@ -699,8 +694,8 @@ def chargestable():
     print(type(total_cost))
     total_cost = total_cost[0]
     inventory = Inventory.query.all()
-    patient=Patient.query.all()
-    return render_template('charges.html', charges=charges, total_cost=total_cost, inventory=inventory,patient=patient)
+    patient = Patient.query.filter(Patient.id == x)
+    return render_template('charges.html', charges=charges, total_cost=total_cost, inventory=inventory, patient=patient)
 
 
 @app.route('/visitor', methods=['POST', 'GET'])
@@ -840,9 +835,6 @@ def pat_repo():
     #             return render_template("kra.html",d=d)
     #         else:
     #             return render_template("kra.html",d=d)
-
-
-
 
 
 if __name__ == '__main__':

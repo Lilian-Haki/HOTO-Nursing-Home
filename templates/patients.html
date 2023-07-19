@@ -18,11 +18,11 @@
                     <form method="POST" action="/patients">
                         <div class="mb-3">
                             <label for="" class="form-label">First Name</label>
-                            <input type="text" class="form-control" name="first_name" id="" aria-describedby="" />
+                            <input type="text" class="form-control" name="first_name" id="" aria-describedby="" required/>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" name="last_name" id="" aria-describedby="" />
+                            <input type="text" class="form-control" name="last_name" id="" required aria-describedby="" />
                         </div>
                         <div class="dropdown">
                             <label for="">Choose Gender</label>
@@ -33,21 +33,21 @@
                             </select>
                         </div>
                         <div class="mb-3">
-                            <label for="" class="form-label">Address</label>
-                            <input type="email" class="form-control" name="address" id="" aria-describedby="" />
+                            <label for="" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" name="address" required id="" aria-describedby="" />
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Telephone Number</label>
-                            <input type="tel" class="form-control" name="telephone_number"
+                            <input type="tel" class="form-control" name="telephone_number" required
                             placeholder="0712345678" pattern="[0-9]{10}" id="tel" aria-describedby="" />
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Guardian_Name </label>
-                            <input type="text" class="form-control" name="gname" id="" aria-describedby="" />
+                            <input type="text" class="form-control" name="gname" id="" required aria-describedby="" />
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Guardian Telephone Number</label>
-                            <input type="tel" class="form-control" name="gtelephone_number"
+                            <input type="tel" class="form-control" name="gtelephone_number" required
                             placeholder="0712345678" pattern="[0-9]{10}" id="body" aria-describedby="" />
                         </div>
                         <br />
@@ -65,7 +65,7 @@
                 <th scope="col">First Name</th>
                 <th scope="col">Last Name</th>
                 <th scope="col">Gender</th>
-                <th scope="col">Address</th>
+                <th scope="col">Email Address</th>
                 <th scope="col">Telephone</th>
                 <th scope="col">Guardian_Name</th>
                 <th scope="col">Guardian_Telephone</th>
@@ -107,12 +107,12 @@
                                         <input type="hidden" name="patient_id" value="{{patient.id}}" />
                                         <div class="form-group">
                                             <label for="" class="form-label">First Name</label>
-                                            <input type="text" class="form-control" name="first_name" id=""
+                                            <input type="text" class="form-control" name="first_name" id="" required
                                                 aria-describedby="emailHelp" value="{{patient.first_name}}" />
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="form-label">Last Name</label>
-                                            <input type="text" class="form-control" name="last_name" id=""
+                                            <input type="text" class="form-control" name="last_name" id="" required
                                                 aria-describedby="emailHelp" value="{{patient.last_name}}" />
                                         </div>
                                         <div class="dropdown">
@@ -125,14 +125,25 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="form-label">Address</label>
-                                            <input type="email" class="form-control" name="address" id=""
+                                            <input type="email" class="form-control" name="address" id="" required
                                                 aria-describedby="emailHelp" value="{{patient.address}}" />
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="form-label">Telephone</label>
-                                            <input type="tel" class="form-control" name="telephone" id=""
+                                            <input type="tel" class="form-control" name="telephone" id="" required
                                                 aria-describedby="emailHelp" pattern="[0-9]{10}" value="{{patient.telephone}}" />
-                                        <input type="submit" class="btn btn-primary" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="form-label">Guardian Name</label>
+                                            <input type="text" class="form-control" name="guardian_name" id="" required
+                                                aria-describedby="emailHelp" value="{{patient.guardian_name}}" />
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="form-label">Guardian Telephone</label>
+                                            <input type="text" class="form-control" name="guardian_phone_no" id="" required
+                                                aria-describedby="emailHelp" value="{{patient.guardian_phone_no}}" />
+                                        </div>
+                                                <input type="submit" class="btn btn-primary" />
                                     </form>
                                 </div>
                             </div>

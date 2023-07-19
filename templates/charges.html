@@ -48,9 +48,11 @@
     var divContents = document.getElementById("GFG").innerHTML;
     var a = window.open('', '', 'height=500, width=500');
     a.document.write('<table>');
-    a.document.write('<h3>Receipt<br>');
+    a.document.write('<h3><u>Receipt</u><br>');
     a.document.write(divContents);
     a.document.write("</table>");
+
+    a.document.write("Thank you for trusting us with your loved ones");
     a.document.close();
     a.print();
   }
@@ -168,7 +170,7 @@
     <button type="button" class="btn btn-primary mb-3 mt-3" data-bs-toggle="modal" data-bs-target="#exampleModal1">
         PAY BILL
     </button>
-
+   
     <!-- Modal -->
     <div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -188,7 +190,7 @@
                             </div>
                             <div class="form-group">
                                 <input type="number" name="cost" id="cost" class="form-control input-lg"
-                                    placeholder="Amount PAID">
+                                    placeholder="Amount PAID" required>
                             </div>
                             
                             <hr class="colorgraph">
@@ -207,22 +209,15 @@
 
     <!-- this is the code for the table -->
     <div id="GFG">
-      <table>
-      <tbody>
-          <form id>
-            <label for="fname">Patients Name:</label>
-            <input type="text" id="mybox" ><br>
-            <label for="lname">Number:</label>
-            <input type="text" id="mybox" ><br>
-            <label for="lname">Address:</label>
-            <input type="text" id="mybox" ><br>
-            <label for="lname">Paid by:</label>
-            <input type="text" id="mybox" >
-            
-          </form>
-  </tbody>
-</table>
-    
+      {% for patient_val in patient %}
+      <br>
+      Patients name: {{patient_val.first_name}} {{patient_val.last_name}}<br>
+      Customer email: {{patient_val.address}}<br>
+      Customer contact: {{patient_val.telephone}}<br>
+      Under care of: {{patient_val.guardian_name}}
+      {% endfor %}
+      
+
     <table border="1px"id="myTable" class="table">
         <thead>
             <tr>
@@ -249,7 +244,7 @@
         <div class="card-counter success">
           <i class="fa fa-users"></i>
           <span class="count-name">BALANCE</span>
-          <span class="count-numbers">KSH:   {{ total_cost }}</span>
+          <span class="count-numbers">KSH: {{ total_cost }}</span>
           
         </div>
       </div>

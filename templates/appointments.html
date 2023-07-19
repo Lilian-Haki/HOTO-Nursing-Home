@@ -40,43 +40,43 @@
             <hr />
             <div class="mb-3">
               <label for="">Start time</label>
-              <input type="date" id="" name="start_time" min="2022-03-30"  />
+              <input type="date" id="" name="start_time" min="2022-07-20"  />
             </div>
             <div class="mb-3">
               <label for="">End time</label>
-              <input type="date" id="" name="end_time" min="2022-03-30"/>
+              <input type="date" id="" name="end_time" min="2022-07-20"/>
             </div>
             <hr />
             <p>Triage</p>
             <div class="form-floating">
               <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
-                name="triage_report"></textarea>
+                name="triage_report" required></textarea>
               <label for="floatingTextarea">Triage Section Report</label>
             </div>
             <hr />
             <p>Doctor</p>
             <div class="form-floating">
               <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
-                name="symptoms_report"></textarea>
+                name="symptoms_report" required></textarea>
               <label for="floatingTextarea">Symptoms Report</label>
             </div>
             <br />
             <div class="form-floating">
               <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
-                name="medication_report"></textarea>
+                name="medication_report" required></textarea>
               <label for="floatingTextarea">Medication Report</label>
             </div>
             <br />
             <div class="form-floating">
               <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
-                name="other_remarks"></textarea>
+                name="other_remarks" required></textarea>
               <label for="floatingTextarea">Other Remarks</label>
             </div>
             <hr />
             <p>Laboratory</p>
             <div class="form-floating">
               <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea"
-                name="lab_report"></textarea>
+                name="lab_report" required></textarea>
               <label for="floatingTextarea">Lab Report</label>
             </div>
             <div class="mb-3">
@@ -256,7 +256,7 @@
                       </div>
                       <div class="mb-3">
                         <label for="">Start time</label>
-                        <input type="text" id="" value="{{appointment.start_time}}" name="start_time" />
+                        <input type="text" id="" value="{{appointment.start_time}}" name="start_time"/>
                       </div>
                       <div class="mb-3">
                         <label for="">End time</label>
@@ -267,10 +267,10 @@
                       <div style="margin-bottom: 1rem">
                         <label for="floatingTextarea">Triage Section Report</label>
                         {% if role == 'Admin' or role == 'Nurse' %}
-                        <textarea class="form-control" id="floatingTextarea"
+                        <textarea class="form-control" id="floatingTextarea" required
                           name="triage_report">{{appointment.triage_report}}</textarea>
                         {% else %}
-                        <textarea class="form-control" id="floatingTextarea" name="triage_report"
+                        <textarea class="form-control" id="floatingTextarea" name="triage_report" 
                           disabled>{{appointment.triage_report}}</textarea>
                         {% endif %}
                       </div>
@@ -279,10 +279,10 @@
                       <div>
                         <label for="floatingTextarea">Symptoms Report</label>
                         {% if role == 'Admin' or role == 'Medical Staff' %}
-                        <textarea class="form-control" id="floatingTextarea"
+                        <textarea class="form-control" id="floatingTextarea" required
                           name="symptoms_report">{{appointment.symptoms_report}}</textarea>
                         {% else %}
-                        <textarea class="form-control" id="floatingTextarea" name="symptoms_report"
+                        <textarea class="form-control" id="floatingTextarea" name="symptoms_report" 
                           disabled>{{appointment.symptoms_report}}</textarea>
                         {% endif %}
                       </div>
@@ -290,10 +290,10 @@
                       <div>
                         <label for="floatingTextarea">Medication Report</label>
                         {% if role == 'Admin' or role == 'Medical Staff' %}
-                        <textarea class="form-control" id="floatingTextarea"
+                        <textarea class="form-control" id="floatingTextarea" required
                           name="medication_report">{{appointment.medication_report}}</textarea>
                         {% else %}
-                        <textarea class="form-control" id="floatingTextarea" name="medication_report"
+                        <textarea class="form-control" id="floatingTextarea" name="medication_report" 
                           disabled>{{appointment.medication_report}}</textarea>
                         {% endif %}
                       </div>
@@ -301,7 +301,7 @@
                       <div>
                         <label for="floatingTextarea">Other Remarks</label>
                         {% if role == 'Admin' or role == 'Medical Staff' %}
-                        <textarea class="form-control" id="floatingTextarea"
+                        <textarea class="form-control" id="floatingTextarea" required
                           name="other_remarks">{{appointment.other_remarks}}</textarea>
                         {% else %}
                         <textarea class="form-control" id="floatingTextarea" name="other_remarks"
@@ -313,7 +313,7 @@
                       <div>
                         <label for="floatingTextarea">Lab Report</label>
                         {% if role == 'Admin' or role == 'Lab Technician' %}
-                        <textarea class="form-control" id="floatingTextarea"
+                        <textarea class="form-control" id="floatingTextarea" required
                           name="lab_report">{{appointment.lab_report}}</textarea>
                         {% else %}
                         <textarea class="form-control" id="floatingTextarea" name="lab_report"

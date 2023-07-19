@@ -471,7 +471,8 @@ p {
 	justify-content: center;
 	align-items: center;
 	flex-direction: column;
-	box-shadow: 0px 0px 18px 0 #0000002c;
+	box-shadow: 0px 0px 18px 0 #3a1f1f2c;
+	background-color: #20203a;
 	transition: 0.3s ease box-shadow;
 }
 #contact .contact-item:hover {
@@ -486,17 +487,19 @@ p {
 	font-size: 2.5rem;
 	font-weight: 500;
 	margin-bottom: 5px;
+	color: aliceblue;
 }
 #contact .contact-info h2 {
 	font-size: 1.3rem;
 	line-height: 2rem;
 	font-weight: 500;
+	color: aliceblue;
 }
 /*End contact Section */
 
 /* Footer */
 #footer {
-	background-image: linear-gradient(60deg, #29323c 0%, #485563 100%);
+	background-image: linear-gradient(60deg, #20203a 0%, #20203a 100%);
 }
 #footer .footer {
 	min-height: 200px;

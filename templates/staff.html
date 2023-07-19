@@ -20,15 +20,15 @@
                     <form method="POST" action="/staff">
                         <div class="mb-3">
                             <label for="" class="form-label">First Name</label>
-                            <input type="text" class="form-control" name="first_name" id="" aria-describedby="">
+                            <input type="text" class="form-control" name="first_name" id="" aria-describedby="" required>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" name="last_name" id="" aria-describedby="">
+                            <input type="text" class="form-control" name="last_name" id="" aria-describedby="" required>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Department</label>
-                            <input type="text" class="form-control" name="department" id="" aria-describedby="">
+                            <input type="text" class="form-control" name="department" id="" aria-describedby="" required>
                         </div>
                         <div class="dropdown">
                             <label for="">Choose Gender</label>
@@ -40,15 +40,15 @@
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Address</label>
-                            <input type="text" class="form-control" name="address" id="" aria-describedby="">
+                            <input type="text" class="form-control" name="address" id="" aria-describedby="" required>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Telephone</label>
-                            <input type="text" class="form-control" name="telephone" id="" aria-describedby="">
+                            <input type="text" class="form-control" name="telephone" id="" aria-describedby="" required>
                         </div>
                         <div class="mb-3">
                             <label for="" class="form-label">Email</label>
-                            <input type="text" class="form-control" name="email" id="" aria-describedby="">
+                            <input type="text" class="form-control" name="email" id="" aria-describedby="" required>
                         </div>
                         <div class="dropdown">
                             <label for="">Choose Role</label>
@@ -107,17 +107,17 @@
                                         <input type="hidden" name="staff_id" value="{{staff_member.id}}">
                                         <div class="form-group">
                                             <label for="" class="form-label">First Name</label>
-                                            <input type="text" class="form-control" name="first_name" id=""
+                                            <input type="text" class="form-control" name="first_name" id="" required
                                                 aria-describedby="emailHelp" value="{{staff_member.first_name}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="form-label">Last Name</label>
-                                            <input type="text" class="form-control" name="last_name" id=""
+                                            <input type="text" class="form-control" name="last_name" id="" required
                                                 aria-describedby="emailHelp" value="{{staff_member.last_name}}">
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="form-label">Department</label>
-                                            <input type="text" class="form-control" name="department" id=""
+                                            <input type="text" class="form-control" name="department" id="" required
                                                 aria-describedby="emailHelp" value="{{staff_member.department}}">
                                         </div>
                                         <div class="dropdown">
@@ -140,7 +140,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="" class="form-label">Telephone</label>
-                                            <input type="text" class="form-control" name="telephone" id=""
+                                            <input type="text" class="form-control" name="telephone" id="" required
                                                 aria-describedby="emailHelp" value="{{staff_member.telephone}}">
                                         </div>
                                         <input type="submit" class="btn btn-primary">
